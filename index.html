@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Soal No 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{
+            margin: 5px 100px 5px 100px;
+            background-image: url(https://dreamsky10.com/wp-content/uploads/2016/09/google-wallpapers10.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .container{
+            height: 80vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .container input{
+            padding: 10px;
+            font-size: 17px;
+            width: 450px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .encode{
+            padding: 10px;
+            font-size: 17px;
+            color: #fff;
+            background-color: #2ecc71;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .decode{
+            padding: 10px;
+            font-size: 17px;
+            color: #fff;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout{
+            padding: 10px;
+            font-size: 17px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #f00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .footer{
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+        }
+        #span{
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+            font-size: 20px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        #span div{
+            padding: 2px 15px 2px 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <a href="/logout">
+            <button class="logout">Logout</button>
+        </a>
+        <div>
+            <input type="text" placeholder="Input here.." id="input">
+        </div>
+    </div>
+    <div class="footer">
+        <div>
+            <button class="encode" id="encode">Encode</button>
+            <button class="decode" id="decode">Decode</button>
+            <br>
+            <br>
+            <span id="span"></span>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $('#encode').click(() => {
+        var data = {
+            "input": $('#input').val()
+        }
+        $.ajax({
+            type: "POST",
+            data: data,
+            url: "http://localhost:3000/encode",
+            success(output){
+                $('#span').html(`<div>${output.output}</div>`)
+                $('#input').val("")
+            }
+        })
+    })
+    $('#decode').click(() => {
+        var data = {
+            "input": $('#input').val()
+        }
+        $.ajax({
+            type: "POST",
+            data: data,
+            url: "http://localhost:3000/decode",
+            success(output){
+                $('#span').html(`<div>${output.output}</div>`)
+                $('#input').val("")
+            }
+        })
+    })
+</script>
